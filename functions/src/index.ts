@@ -6,17 +6,40 @@ admin.initializeApp()
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
 //
- export const getMembers = functions.https.onRequest((request, response) => {
+export const getMembers = functions.https.onRequest((request, response) => {
     const db = admin.database();
-    const ref = db.ref("/Members");
-    console.log("hello");
-    ref.orderByKey().on("child_added",function(snapshot){
-        console.log(snapshot.key);
+    const MembersRef = db.ref("/Members");
+
+    MembersRef.once('value')
+    .then(function(snap){
+        console.log(snap.val())
+        response.status(200).json({members: snap.val()});
+    })
+    .catch(function(error){
+        console.log(error.code);
     })
 
+
  });
+
+
+
+
+
+
+
+
   
+
+
  
+
+
+
+
+
+
+
 
 
 
