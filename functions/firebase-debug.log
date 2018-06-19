@@ -1,18 +1,39 @@
-[debug] [2018-06-19T12:01:47.114Z] ----------------------------------------------------------------------
-[debug] [2018-06-19T12:01:47.116Z] Command:       /Users/sharduldeshpande/.nvm/versions/node/v9.4.0/bin/node /Users/sharduldeshpande/.nvm/versions/node/v9.4.0/bin/firebase serve
-[debug] [2018-06-19T12:01:47.116Z] CLI Version:   3.18.6
-[debug] [2018-06-19T12:01:47.116Z] Platform:      darwin
-[debug] [2018-06-19T12:01:47.116Z] Node Version:  v9.4.0
-[debug] [2018-06-19T12:01:47.116Z] Time:          Tue Jun 19 2018 17:31:47 GMT+0530 (IST)
-[debug] [2018-06-19T12:01:47.116Z] ----------------------------------------------------------------------
+[debug] [2018-06-19T12:20:44.175Z] ----------------------------------------------------------------------
+[debug] [2018-06-19T12:20:44.177Z] Command:       /Users/sharduldeshpande/.nvm/versions/node/v9.4.0/bin/node /Users/sharduldeshpande/.nvm/versions/node/v9.4.0/bin/firebase serve
+[debug] [2018-06-19T12:20:44.178Z] CLI Version:   3.18.6
+[debug] [2018-06-19T12:20:44.178Z] Platform:      darwin
+[debug] [2018-06-19T12:20:44.178Z] Node Version:  v9.4.0
+[debug] [2018-06-19T12:20:44.178Z] Time:          Tue Jun 19 2018 17:50:44 GMT+0530 (IST)
+[debug] [2018-06-19T12:20:44.178Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2018-06-19T12:01:47.127Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2018-06-19T12:01:47.127Z] > authorizing via signed-in user
-[debug] [2018-06-19T12:01:47.129Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2018-06-19T12:01:47.129Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
- { refresh_token: '1/A7YSVCvkVaLNUmsy_37bIcERUAO2NqZmsP59naKUwR4',
-  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
-  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
-  grant_type: 'refresh_token',
-  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
- Tue Jun 19 2018 17:31:47 GMT+0530 (IST)
+[debug] [2018-06-19T12:20:44.188Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-06-19T12:20:44.188Z] > authorizing via signed-in user
+[debug] [2018-06-19T12:20:44.190Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/test-society-51be7  
+  
+ Tue Jun 19 2018 17:50:44 GMT+0530 (IST)
+[debug] [2018-06-19T12:20:46.838Z] <<< HTTP RESPONSE 200
+[debug] [2018-06-19T12:20:46.839Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/test-society-51be7/tokens  
+  
+ Tue Jun 19 2018 17:50:46 GMT+0530 (IST)
+[debug] [2018-06-19T12:20:48.118Z] <<< HTTP RESPONSE 200
+[debug] [2018-06-19T12:20:48.120Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/test-society-51be7  
+  
+ Tue Jun 19 2018 17:50:48 GMT+0530 (IST)
+[debug] [2018-06-19T12:20:49.988Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/sharduldeshpande/firecast'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-06-19T12:20:50.607Z] Fetching environment
+[debug] [2018-06-19T12:20:50.611Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/421731650346:getServerAppConfig  
+  
+ Tue Jun 19 2018 17:50:50 GMT+0530 (IST)
+[debug] [2018-06-19T12:20:51.519Z] <<< HTTP RESPONSE 200
+[debug] [2018-06-19T12:20:51.519Z] Starting @google-cloud/functions-emulator
+[debug] [2018-06-19T12:20:53.108Z] Parsing function triggers
+[info] ✔  functions: getMembers: http://localhost:5000/test-society-51be7/us-central1/getMembers
+[info] ✔  functions: getSociety: http://localhost:5000/test-society-51be7/us-central1/getSociety
+[info] ✔  functions: getFacilities: http://localhost:5000/test-society-51be7/us-central1/getFacilities
+[info] ✔  functions: getMember: http://localhost:5000/test-society-51be7/us-central1/getMember
+[info] ✔  functions: createSociety: http://localhost:5000/test-society-51be7/us-central1/createSociety
+[info] ✔  functions: getNotices: http://localhost:5000/test-society-51be7/us-central1/getNotices

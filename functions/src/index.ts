@@ -42,6 +42,8 @@ export const getMembers = functions.https.onRequest((request, response) => {
 
 
 // All society APIs 
+
+//createSociety()
 export const createSociety = functions.https.onRequest((request, response) => {
 
     const inpaddress = request.query.address;
@@ -51,8 +53,8 @@ export const createSociety = functions.https.onRequest((request, response) => {
     const inpnotices = request.query.notices; //boolean yes/no
     const inplogo = '/tmpurl';  //upload image and get url
     const inpname = request.query.name;
-    const inpuniqueID = '00001';    //get the unique id from realtime database. maintain a value at root node which keeps count of total number of societies.
-    
+    const getuniqueID = '00001';    //get the unique id from realtime database. maintain a value at root node which keeps count of total number of societies.
+
 
     const db = admin.database();
     const Ref = db.ref("/");
@@ -63,13 +65,20 @@ export const createSociety = functions.https.onRequest((request, response) => {
         address: inpaddress,
         contact: inpcontact,
         notices: inpnotices,
-        facilities: inpfacilities
+        facilities: inpfacilities,
+        logo: inplogo,
+        uniqueID: getuniqueID
+
     };
 
-    Ref.child("society - "+inpname).push(societyObject);
-
+    Ref.child("society - "+inpname).update(societyObject)
+    .then(function(){
+        response.status(200).send("success");
+    })
+    .catch(function(error){
+        console.log(error)
+    })
     
-
 
  });
 
@@ -92,7 +101,8 @@ export const getSociety = functions.https.onRequest((request, response) => {
 
 
 
-//All society APIs
+//All notices APIs
+
 export const getNotices = functions.https.onRequest((request, response) => {
     const db = admin.database();
     const NoticesRef = db.ref("/Society/services/notices");
@@ -110,7 +120,9 @@ export const getNotices = functions.https.onRequest((request, response) => {
  });
 
 
-//All society APIs
+//All facilities APIs
+
+
 export const getFacilities = functions.https.onRequest((request,response) => {
     const db = admin.database();
     const FacilitiesRef = db.ref("/Society/services/facilities");
