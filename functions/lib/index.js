@@ -52,7 +52,7 @@ exports.createSociety = functions.https.onRequest((request, response) => {
         logo: inplogo,
         uniqueID: getuniqueID
     };
-    Ref.child("society - " + inpname).update(societyObject)
+    Ref.child("Society").update(societyObject)
         .then(function () {
         response.status(200).send("success");
     })
@@ -72,7 +72,7 @@ exports.getSociety = functions.https.onRequest((request, response) => {
         console.log(error.code);
     });
 });
-//All society APIs
+//All notices APIs
 exports.getNotices = functions.https.onRequest((request, response) => {
     const db = admin.database();
     const NoticesRef = db.ref("/Society/services/notices");
@@ -85,7 +85,7 @@ exports.getNotices = functions.https.onRequest((request, response) => {
         console.log(error.code);
     });
 });
-//All society APIs
+//All facilities APIs
 exports.getFacilities = functions.https.onRequest((request, response) => {
     const db = admin.database();
     const FacilitiesRef = db.ref("/Society/services/facilities");

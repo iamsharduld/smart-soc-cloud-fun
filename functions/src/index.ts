@@ -71,7 +71,7 @@ export const createSociety = functions.https.onRequest((request, response) => {
 
     };
 
-    Ref.child("society - "+inpname).update(societyObject)
+    Ref.child("Society").update(societyObject)
     .then(function(){
         response.status(200).send("success");
     })
