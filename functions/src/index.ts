@@ -8,6 +8,8 @@ admin.initializeApp()
 // // https://firebase.google.com/docs/functions/typescript
 
 // All member APIs
+
+// getMembers() - listing all members
 export const getMembers = functions.https.onRequest((request, response) => {
     const db = admin.database();
     const MembersRef = db.ref("/Members");
@@ -23,9 +25,56 @@ export const getMembers = functions.https.onRequest((request, response) => {
 
  });
 
+ // getMember() - searching one member by email ID
+ export const getMember = functions.https.onRequest((request, response) => {
+
+    const emailID = request.query.email;
+    const db = admin.database();
+    const MembersRef = db.ref("/").child('Members').orderByChild('Email').equalTo(emailID)
+
+    MembersRef.on("value",function(snap){
+        //console.log(snap.val());
+        response.status(200).json({member: snap.val()});
+    })
+
+ });
+
+
 
 // All society APIs 
- export const getSociety = functions.https.onRequest((request, response) => {
+export const createSociety = functions.https.onRequest((request, response) => {
+
+    const inpaddress = request.query.address;
+    const inpcontact = request.query.contact;
+    const inpemail = request.query.email;
+    const inpfacilities = request.query.facilities; //boolean yes/no
+    const inpnotices = request.query.notices; //boolean yes/no
+    const inplogo = '/tmpurl';  //upload image and get url
+    const inpname = request.query.name;
+    const inpuniqueID = '00001';    //get the unique id from realtime database. maintain a value at root node which keeps count of total number of societies.
+    
+
+    const db = admin.database();
+    const Ref = db.ref("/");
+
+    const societyObject = {
+        name: inpname,
+        email: inpemail,
+        address: inpaddress,
+        contact: inpcontact,
+        notices: inpnotices,
+        facilities: inpfacilities
+    };
+
+    Ref.child("society - "+inpname).push(societyObject);
+
+    
+
+
+ });
+
+
+export const getSociety = functions.https.onRequest((request, response) => {
     const db = admin.database();
     const SocietyRef = db.ref("/Society");
 
