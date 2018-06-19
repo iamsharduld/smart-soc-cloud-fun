@@ -1,0 +1,55 @@
+[debug] [2018-06-19T10:53:48.648Z] ----------------------------------------------------------------------
+[debug] [2018-06-19T10:53:48.651Z] Command:       /Users/sharduldeshpande/.nvm/versions/node/v9.4.0/bin/node /Users/sharduldeshpande/.nvm/versions/node/v9.4.0/bin/firebase serve
+[debug] [2018-06-19T10:53:48.651Z] CLI Version:   3.18.6
+[debug] [2018-06-19T10:53:48.651Z] Platform:      darwin
+[debug] [2018-06-19T10:53:48.651Z] Node Version:  v9.4.0
+[debug] [2018-06-19T10:53:48.651Z] Time:          Tue Jun 19 2018 16:23:48 GMT+0530 (IST)
+[debug] [2018-06-19T10:53:48.652Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-06-19T10:53:48.662Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-06-19T10:53:48.662Z] > authorizing via signed-in user
+[debug] [2018-06-19T10:53:48.664Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/test-society-51be7  
+  
+ Tue Jun 19 2018 16:23:48 GMT+0530 (IST)
+[debug] [2018-06-19T10:54:18.700Z] Error: getaddrinfo ENOTFOUND admin.firebase.com admin.firebase.com:443
+    at errnoException (dns.js:55:10)
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:97:26)
+[error] 
+[error] Error: Server Error. getaddrinfo ENOTFOUND admin.firebase.com admin.firebase.com:443
+[debug] [2018-06-19T10:54:30.314Z] ----------------------------------------------------------------------
+[debug] [2018-06-19T10:54:30.316Z] Command:       /Users/sharduldeshpande/.nvm/versions/node/v9.4.0/bin/node /Users/sharduldeshpande/.nvm/versions/node/v9.4.0/bin/firebase serve
+[debug] [2018-06-19T10:54:30.316Z] CLI Version:   3.18.6
+[debug] [2018-06-19T10:54:30.316Z] Platform:      darwin
+[debug] [2018-06-19T10:54:30.316Z] Node Version:  v9.4.0
+[debug] [2018-06-19T10:54:30.317Z] Time:          Tue Jun 19 2018 16:24:30 GMT+0530 (IST)
+[debug] [2018-06-19T10:54:30.317Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-06-19T10:54:30.328Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-06-19T10:54:30.329Z] > authorizing via signed-in user
+[debug] [2018-06-19T10:54:30.331Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/test-society-51be7  
+  
+ Tue Jun 19 2018 16:24:30 GMT+0530 (IST)
+[debug] [2018-06-19T10:54:33.917Z] <<< HTTP RESPONSE 200
+[debug] [2018-06-19T10:54:33.918Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/test-society-51be7/tokens  
+  
+ Tue Jun 19 2018 16:24:33 GMT+0530 (IST)
+[debug] [2018-06-19T10:54:35.209Z] <<< HTTP RESPONSE 200
+[debug] [2018-06-19T10:54:35.210Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/test-society-51be7  
+  
+ Tue Jun 19 2018 16:24:35 GMT+0530 (IST)
+[debug] [2018-06-19T10:54:37.065Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/sharduldeshpande/firecast'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-06-19T10:54:37.849Z] Fetching environment
+[debug] [2018-06-19T10:54:37.852Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/421731650346:getServerAppConfig  
+  
+ Tue Jun 19 2018 16:24:37 GMT+0530 (IST)
+[debug] [2018-06-19T10:54:38.805Z] <<< HTTP RESPONSE 200
+[debug] [2018-06-19T10:54:38.806Z] Starting @google-cloud/functions-emulator
+[debug] [2018-06-19T10:54:40.384Z] Parsing function triggers
+[info] ✔  functions: getMembers: http://localhost:5000/test-society-51be7/us-central1/getMembers
+[info] ✔  functions: getFacilities: http://localhost:5000/test-society-51be7/us-central1/getFacilities
+[info] ✔  functions: getNotices: http://localhost:5000/test-society-51be7/us-central1/getNotices
+[info] ✔  functions: getSociety: http://localhost:5000/test-society-51be7/us-central1/getSociety
