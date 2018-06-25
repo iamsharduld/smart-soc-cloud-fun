@@ -11,8 +11,14 @@ admin.initializeApp()
 // // All society APIs 
 
 // //working
+
+
+
+
 export const createSociety = functions.https.onRequest((request, response) => {
 
+    response.set('Access-Control-Allow-Origin', "*")
+    response.set('Access-Control-Allow-Methods', 'GET, POST')
 
     const db = admin.database();
     const Ref = db.ref("/societies");
@@ -343,6 +349,11 @@ export const updateNotice = functions.https.onRequest((request, response) => {
 
 // /*Fetch list of all the members in a particular society. The societyId is passed via the url*/
 export const getMembers = functions.https.onRequest((req,res) => {
+
+
+    res.set('Access-Control-Allow-Origin', "*")
+    res.set('Access-Control-Allow-Methods', 'GET, POST')
+
     const db = admin.database();
 
 
