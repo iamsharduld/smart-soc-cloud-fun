@@ -93,6 +93,9 @@ export const createSociety = functions.https.onRequest((request, response) => {
  
 // working
 export const getSociety = functions.https.onRequest((request, response) => {
+
+    response.set('Access-Control-Allow-Origin', "*")
+    response.set('Access-Control-Allow-Methods', 'GET, POST')
     const socID = request.query.societyID;
     const db = admin.database();
     const SocietyRef = db.ref("/societies/"+socID);
@@ -118,7 +121,8 @@ export const getSociety = functions.https.onRequest((request, response) => {
 
 //deletes society by it's ID
 export const deleteSociety = functions.https.onRequest((request, response) => {
-    
+    response.set('Access-Control-Allow-Origin', "*")
+    response.set('Access-Control-Allow-Methods', 'GET, POST')
     const socID = request.query.societyID;
     const db = admin.database();
     const SocietyRef = db.ref("/societies");
@@ -149,7 +153,8 @@ export const deleteSociety = functions.https.onRequest((request, response) => {
 
 //  //update society
 export const updateSociety = functions.https.onRequest((request, response) => {
-
+    response.set('Access-Control-Allow-Origin', "*")
+    response.set('Access-Control-Allow-Methods', 'GET, POST')
     const updateObject = request.query;
     const socID = request.query.societyID;
 
@@ -188,7 +193,8 @@ export const updateSociety = functions.https.onRequest((request, response) => {
 
 // get all notices of a particular society
 export const getNotices = functions.https.onRequest((request, response) => {
-
+    response.set('Access-Control-Allow-Origin', "*")
+    response.set('Access-Control-Allow-Methods', 'GET, POST')
     const socID = request.query.societyID;
     const db = admin.database();
     const NoticesRef = db.ref("/notices/"+socID);
@@ -207,7 +213,8 @@ export const getNotices = functions.https.onRequest((request, response) => {
 
  //get a notices of a particular society using date
 export const getNoticeByDate = functions.https.onRequest((request, response) => {
-
+    response.set('Access-Control-Allow-Origin', "*")
+    response.set('Access-Control-Allow-Methods', 'GET, POST')
     const date = request.query.date;
     const socID = request.query.societyID;
     const db = admin.database();
@@ -233,7 +240,8 @@ export const getNoticeByDate = functions.https.onRequest((request, response) => 
 
 
 export const createNotice = functions.https.onRequest((request, response) => {
-
+    response.set('Access-Control-Allow-Origin', "*")
+    response.set('Access-Control-Allow-Methods', 'GET, POST')
     const datetime = request.query.datetime; //date time object with clients date and time
     const description = request.query.description;
     const pic = request.query.pic; //URL of the pic uploaded in firebase storage
@@ -269,7 +277,8 @@ export const createNotice = functions.https.onRequest((request, response) => {
 
 
 export const updateNotice = functions.https.onRequest((request, response) => {
-    
+    response.set('Access-Control-Allow-Origin', "*")
+    response.set('Access-Control-Allow-Methods', 'GET, POST')
     const datetime = request.query.datetime; //date time object with clients date and time, edit "datetime" to "request.query.datetime"
 
     //const query = request.query; //entire json object of the notice which you want to update
@@ -325,7 +334,8 @@ export const updateNotice = functions.https.onRequest((request, response) => {
 
  //deletion of notice by date and time of the notice
  export const deleteNotice = functions.https.onRequest((request, response) => {
-    
+    response.set('Access-Control-Allow-Origin', "*")
+    response.set('Access-Control-Allow-Methods', 'GET, POST')
     const datetime = request.query.datetime; //date time object with clients date and time, edit "datetime" to "request.query.datetime"
     const socID = request.query.societyID;
     const db = admin.database();
@@ -379,6 +389,8 @@ export const getMembers = functions.https.onRequest((req,res) => {
             
 //     all the data parameters are passed via the url. System generated key used*/ 
 export const createMember = functions.https.onRequest((request,response) =>{
+    response.set('Access-Control-Allow-Origin', "*")
+    response.set('Access-Control-Allow-Methods', 'GET, POST')
     const db = admin.database();
 //>societyID should be queried.currently hardcoded
 
@@ -410,7 +422,8 @@ export const createMember = functions.https.onRequest((request,response) =>{
 //  currently required to update data.
 // */   
   export const updateMember = functions.https.onRequest((request,response) =>{
-    
+    response.set('Access-Control-Allow-Origin', "*")
+    response.set('Access-Control-Allow-Methods', 'GET, POST')
     const socID = request.query.societyID;
     const db = admin.database();
 //societyID should be queried.currently hardcoded
@@ -452,6 +465,8 @@ export const createMember = functions.https.onRequest((request,response) =>{
 //             |-New facility added here
 // */
 export const createFacility = functions.https.onRequest((request,response) => {
+    response.set('Access-Control-Allow-Origin', "*")
+    response.set('Access-Control-Allow-Methods', 'GET, POST')
     const db = admin.database();
     const facilities = db.ref("/facilities/1");
 
@@ -490,6 +505,8 @@ export const createFacility = functions.https.onRequest((request,response) => {
 //  accordingly updates if facility exists
 // */
 export const updateFacility = functions.https.onRequest((request,response) => {
+    response.set('Access-Control-Allow-Origin', "*")
+    response.set('Access-Control-Allow-Methods', 'GET, POST')
     const db = admin.database();
     const facilities = db.ref("/facilities/1");
 
@@ -539,6 +556,8 @@ export const updateFacility = functions.https.onRequest((request,response) => {
 
 
 export const getFacilities = functions.https.onRequest((request,response) => {
+    response.set('Access-Control-Allow-Origin', "*")
+    response.set('Access-Control-Allow-Methods', 'GET, POST')
     const db = admin.database();
     const facilities = db.ref("/facilities/");
 
