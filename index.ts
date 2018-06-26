@@ -429,6 +429,9 @@ export const createMember = functions.https.onRequest((request,response) =>{
 //societyID should be queried.currently hardcoded
     const key = request.query.key;
     const Membersref = db.ref("/Members/"+socID+"/" + key + "/");
+
+    console.log("/Members/"+socID+"/" + key + "/");
+
     const email = request.query.email;
     const name  = request.query.name;
     const contact = request.query.contact;
@@ -529,19 +532,44 @@ export const searchMember = functions.https.onRequest((request,response) =>{
     }
     
 
-    
-
-
-
-
-
-
-
 })
 
 
+// Delete Member
+
+export const deleteMember = functions.https.onRequest((request,response) => {
 
 
+    response.set('Access-Control-Allow-Origin', "*")
+    response.set('Access-Control-Allow-Methods', 'GET, POST')
+    const socID = request.query.societyID;
+    const key = request.query.key;
+
+    const db = admin.database();
+    const MemberRef = db.ref("/Members/"+socID);
+
+   MemberRef.once('value',function(snap){
+        if(snap.hasChild(key)){
+            MemberRef.child(key).remove()
+            .then(function(success){
+                response.status(200).send("successfully removed");
+            })
+            .catch(function(error){
+                console.log(error);
+            })
+        }
+        else{
+            response.status(200).send("Society not found");
+        }
+    })
+    .then(function(){
+        console.log("success");
+    })
+    .catch(function(error){
+        console.log(error);
+    })
+
+});
 
 // //All facilities API
 
@@ -667,6 +695,36 @@ export const getFacilities = functions.https.onRequest((request,response) => {
         response.status(200).send("society Id not found");
     }
 });
+
+
+
+
+
+// Storage Trigger for CSV file upload
+
+export const addMembersViaCSV = functions.storage.object().onFinalize((object) => {
+    console.log("hello");
+    console.log(object.bucket);
+    console.log(object);
+    const downloadURL = object.name;
+
+    const stor = admin.storage().bucket().file(downloadURL).download()
+
+    .then(function(){
+        console.log(stor);
+    })
+
+    .catch(function(error){
+        console.log("error", stor);
+    })
+
+    //const pathReference = stor.ref(downloadURL);
+    
+
+
+});
+
+
 
 
 
