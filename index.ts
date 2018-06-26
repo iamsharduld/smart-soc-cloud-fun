@@ -358,20 +358,20 @@ export const updateNotice = functions.https.onRequest((request, response) => {
 // // All member APIs
 
 // /*Fetch list of all the members in a particular society. The societyId is passed via the url*/
-export const getMembers = functions.https.onRequest((req,res) => {
+export const getMembers = functions.https.onRequest((request,response) => {
 
 
-    res.set('Access-Control-Allow-Origin', "*")
-    res.set('Access-Control-Allow-Methods', 'GET, POST')
+    response.set('Access-Control-Allow-Origin', "*")
+    response.set('Access-Control-Allow-Methods', 'GET, POST')
 
     const db = admin.database();
 
 
-    const socID = req.query.societyID;
+    const socID = request.query.societyID;
     const Membersref = db.ref("/Members/"+socID);
     
     Membersref.once('value',(snapshot) => {
-        res.status(200).json({member: snapshot.val()});
+        response.status(200).json({member: snapshot.val()});
     })
     .then(function(){
         console.log("success");
@@ -452,6 +452,94 @@ export const createMember = functions.https.onRequest((request,response) =>{
         response.status(200).send("failure");
     })
   });
+
+
+export const searchMember = functions.https.onRequest((request,response) =>{
+    response.set('Access-Control-Allow-Origin', "*")
+    response.set('Access-Control-Allow-Methods', 'GET, POST')
+
+    const socID = request.query.societyID;
+    const email = request.query.email;
+    const contact = request.query.contact;
+    const name = request.query.name;
+
+    const db = admin.database();
+
+    //if email ID is sent in request
+    if(email){
+        const MemberRef = db.ref("/Members/").child(socID).orderByChild('email').equalTo(email);
+
+        MemberRef.once('value',function(snap){
+            if(snap.val()){
+                response.status(200).json({member:snap.val()});
+            }
+            else{
+                response.status(200).json({member:null});
+            }
+        })
+        
+        .then(function(){
+            console.log("success")
+        })
+        .catch(function(error){
+            console.log(error)
+        })
+    }
+
+    //if contact is sent in request
+    if(contact){
+        const MemberRef = db.ref("/Members/").child(socID).orderByChild('contact').equalTo(contact);
+
+        MemberRef.once('value',function(snap){
+            if(snap.val()){
+                response.status(200).json({member:snap.val()});
+            }
+            else{
+                response.status(200).json({member:null});
+            }
+        })
+        
+        .then(function(){
+            console.log("success")
+        })
+        .catch(function(error){
+            console.log(error)
+        }) 
+    }
+
+    //if name is sent in request
+    if(name){
+        const MemberRef = db.ref("/Members/").child(socID).orderByChild('name').equalTo(name);
+
+        MemberRef.once('value',function(snap){
+            if(snap.val()){
+                response.status(200).json({member:snap.val()});
+            }
+            else{
+                response.status(200).json({member:null});
+            }
+        })
+        
+        .then(function(){
+            console.log("success")
+        })
+        .catch(function(error){
+            console.log(error)
+        }) 
+    }
+    
+
+    
+
+
+
+
+
+
+
+})
+
+
 
 
 
