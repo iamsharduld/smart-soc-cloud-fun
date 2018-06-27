@@ -465,6 +465,7 @@ export const searchMember = functions.https.onRequest((request,response) =>{
     const email = request.query.email;
     const contact = request.query.contact;
     const name = request.query.name;
+    const flatno = request.query.flatno;
 
     const db = admin.database();
 
@@ -483,6 +484,7 @@ export const searchMember = functions.https.onRequest((request,response) =>{
         
         .then(function(){
             console.log("success")
+
         })
         .catch(function(error){
             console.log(error)
@@ -490,7 +492,7 @@ export const searchMember = functions.https.onRequest((request,response) =>{
     }
 
     //if contact is sent in request
-    if(contact){
+    else if(contact){
         const MemberRef = db.ref("/Members/").child(socID).orderByChild('contact').equalTo(contact);
 
         MemberRef.once('value',function(snap){
@@ -511,8 +513,28 @@ export const searchMember = functions.https.onRequest((request,response) =>{
     }
 
     //if name is sent in request
-    if(name){
+    else if(name){
         const MemberRef = db.ref("/Members/").child(socID).orderByChild('name').equalTo(name);
+
+        MemberRef.once('value',function(snap){
+            if(snap.val()){
+                response.status(200).json({member:snap.val()});
+            }
+            else{
+                response.status(200).json({member:null});
+            }
+        })
+        
+        .then(function(){
+            console.log("success")
+        })
+        .catch(function(error){
+            console.log(error)
+        }) 
+    }
+
+    else if(flatno){
+        const MemberRef = db.ref("/Members/").child(socID).orderByChild('flatno').equalTo(flatno);
 
         MemberRef.once('value',function(snap){
             if(snap.val()){
