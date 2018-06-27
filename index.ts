@@ -594,7 +594,6 @@ export const deleteMember = functions.https.onRequest((request,response) => {
 });
 
 // //All facilities API
-
 // /*
 // createFacility enables to create a new Facility under a particular society
 // MainDB
@@ -606,9 +605,8 @@ export const createFacility = functions.https.onRequest((request,response) => {
     response.set('Access-Control-Allow-Origin', "*")
     response.set('Access-Control-Allow-Methods', 'GET, POST')
     const db = admin.database();
-    const facilities = db.ref("/facilities/1");
-
-    const facilityName = request.query.name;
+    const societyid = request.query.societyid;
+    const facilityName = request.query.facilityname;
     const bookAfterUse = request.query.bafu;
     const breakTimePerSlot = request.query.btps;
     const closingHours = request.query.ch;
@@ -617,7 +615,7 @@ export const createFacility = functions.https.onRequest((request,response) => {
     const openingHours = request.query.oh;
     const sessionTime = request.query.st;
     const advanceBookingFrom = request.query.abf;
-
+    const facilities = db.ref("/facilities/" + societyid + "/" + facilityName);
     const facilityObject = {
         book_after_use: bookAfterUse,
         break_time_per_slot: breakTimePerSlot,
@@ -628,7 +626,7 @@ export const createFacility = functions.https.onRequest((request,response) => {
         session_time: sessionTime,
         to_open_before: advanceBookingFrom
     };
-    facilities.child(facilityName).set(facilityObject)
+    facilities.set(facilityObject)
 
     .then(function(){
         response.status(200).send("success");
@@ -638,6 +636,42 @@ export const createFacility = functions.https.onRequest((request,response) => {
         response.status(200).send("failure");
     })
   });
+
+
+
+export const searchFacility = functions.https.onRequest((request,response) => {
+    response.set('Access-Control-Allow-Origin', "*")
+    response.set('Access-Control-Allow-Methods', 'GET, POST')
+    const db = admin.database();
+    const facilities = db.ref("/facilities/");
+    const societyId = request.query.societyid;
+    const facilityName = request.query.facilityname;
+    var flag = false;
+    var flag1 = false;
+
+    facilities.on('value',(snapshot)=>{
+            flag = snapshot.forEach((childSnapShot) => {
+                if(childSnapShot.key === societyId){
+                    flag1 = childSnapShot.forEach((childSnapShot1) => {
+                        if(childSnapShot1.key === facilityName){
+                            response.status(200).send(childSnapShot1.val());
+                            return true;
+                        }
+                        return false;
+                    });
+                    if(!flag1){
+                        response.status(200).send("Facility not found");
+                    }
+                    return true;
+                }
+                return false;
+            })
+            if(!flag){
+                response.status(200).send("SocietyId not found");
+            }
+    });
+
+});
 // /*
 // checks if facility to be updated already exists and returns true and false
 //  accordingly updates if facility exists
@@ -646,9 +680,8 @@ export const updateFacility = functions.https.onRequest((request,response) => {
     response.set('Access-Control-Allow-Origin', "*")
     response.set('Access-Control-Allow-Methods', 'GET, POST')
     const db = admin.database();
-    const facilities = db.ref("/facilities/1");
-
-    const facilityName = request.query.name;
+    const societyId = request.query.societyid;
+    const facilityName = request.query.facilityname;
     const bookAfterUse = request.query.bafu;
     const breakTimePerSlot = request.query.btps;
     const closingHours = request.query.ch;
@@ -657,39 +690,42 @@ export const updateFacility = functions.https.onRequest((request,response) => {
     const openingHours = request.query.oh;
     const sessionTime = request.query.st;
     const advanceBookingFrom = request.query.abf;
-    let flag: boolean = false;
+    const facilities = db.ref("/facilities/"+societyId+"/"+facilityName);
+    const facilityObject = {
+        book_after_use: bookAfterUse,
+        break_time_per_slot: breakTimePerSlot,
+        closing_hours: closingHours,
+        current_status: currentStatus,
+        isbookable: isBookable,
+        opening_hours: openingHours,
+        session_time: sessionTime,
+        to_open_before: advanceBookingFrom
+    };
+    facilities.set(facilityObject)
 
-    facilities.on('value',(snapshot) => {
-        flag = snapshot.forEach((childsnapshot) => {
-            if(childsnapshot.key === facilityName){
-                flag = true;
-                const facilityObject = {
-                    book_after_use: bookAfterUse,
-                    break_time_per_slot: breakTimePerSlot,
-                    closing_hours: closingHours,
-                    current_status: currentStatus,
-                    isbookable: isBookable,
-                    opening_hours: openingHours,
-                    session_time: sessionTime,
-                    to_open_before: advanceBookingFrom
-                };
-                facilities.child(facilityName).set(facilityObject)
-            
-                .then(function(){
-                    //response.status(200).send(flag);
-                })
-            
-                .catch(() => {
-                    //response.status(200).send("failure");
-                })
-                return true;
-            }
-            else
-                return false;
-        })
+    .then(function(){
+        response.status(200).send("success");
+    })
 
-        response.status(200).send(flag);
-    });
+    .catch(() => {
+        response.status(200).send("failure");
+    })
+  });
+
+  export const deleteFacility = functions.https.onRequest((request,response) => {
+    response.set('Access-Control-Allow-Origin', "*")
+    response.set('Access-Control-Allow-Methods', 'GET, POST')
+    const db = admin.database();
+    const societyId = request.query.societyid;
+    const facilityName = request.query.facilityname;
+    const facilities = db.ref("/facilities/" + societyId + "/" + facilityName);
+    facilities.remove()
+    .then(function(success){
+        response.status(200).send("successfully removed");
+    })
+    .catch(function(error){
+        console.log(error);
+    })
   });
 
 
@@ -712,10 +748,11 @@ export const getFacilities = functions.https.onRequest((request,response) => {
                 return false;
             }
         });
+        if(!flag){
+            response.status(200).send("society Id not found");
+        }
     });
-    if(!flag){
-        response.status(200).send("society Id not found");
-    }
+    
 });
 
 
